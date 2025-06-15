@@ -4,14 +4,12 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // Configure CORS to accept requests from frontend domain
+  // Configure CORS with more permissive settings for development
   app.enableCors({
-    origin: [
-      'https://social-media-chi-bay.vercel.app',
-      'http://localhost:8080', // For local development
-    ],
+    origin: true, // Allow all origins in development (or specify your frontend URL)
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
   
   // Optional: Add a global prefix for API routes

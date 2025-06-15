@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: process.env.NODE_ENV === 'production' 
-    ? 'https://your-backend-url.vercel.app' // Update with your actual deployed server URL
-    : 'http://localhost:3000',
+    ? 'https://social-media-nv2v.onrender.com/api' // Your actual deployed backend URL with /api prefix
+    : 'http://localhost:3000/api', // Local backend with /api prefix to match server config
 });
 
 // Add auth token to requests if available
