@@ -4,18 +4,21 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // Add CORS for Vercel deployment
+  // Configure CORS to accept requests from frontend domain
   app.enableCors({
-    origin: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    origin: [
+      'https://social-media-chi-bay.vercel.app',
+      'http://localhost:8080', // For local development
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
   });
   
-  // Enable shutdown hooks
-  app.enableShutdownHooks();
+  // Optional: Add a global prefix for API routes
+  app.setGlobalPrefix('api');
   
-  // Handle Vercel serverless deployment
   const port = process.env.PORT || 3000;
   await app.listen(port);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
